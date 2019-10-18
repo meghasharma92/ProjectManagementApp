@@ -7,6 +7,7 @@ export const AUTH_REDIRECT_PATH = 'AUTH_REDIRECT_PATH';
 
 
 export const SET_PROJECTS = 'SET_PROJECTS';
+export const SET_TASKS = 'SET_TASKS';
 
 
 export const PROJECT_TODOS = 'PROJECT_TODOS';

@@ -11,5 +11,9 @@ export {
     } from './projects';
 
 export {
+    initTasks
+    } from './tasks';
+
+export {
         projectTodos
     } from './project';

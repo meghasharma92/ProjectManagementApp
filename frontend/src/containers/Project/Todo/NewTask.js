@@ -25,7 +25,7 @@ class NewTask extends Component {
   }   
     
 	render(){
-    let form = <div>
+    let form = <FormContainer title="New Task">
     <Form>
       <FormGroup>
         <Label for="taskName">Task Name:</Label>
@@ -36,13 +36,8 @@ class NewTask extends Component {
         <Input type="text" name="description" id="description" placeholder="Description" />
       </FormGroup>
     </Form>
-  </div>
-        return (
-                <CustomModal isOpen={this.state.modal} toggle={this.toggle} 
-                 title= "New Task" body={form}
-                 submitHandler = {this.deleteHandler}
-                 submit="CONTINUE" cancel="CANCEL"/>
-                );
+  </FormContainer>
+        return (form);
 	}
 
 }

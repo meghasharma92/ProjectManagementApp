@@ -112,11 +112,11 @@ class Auth extends Component {
         })
     }
 
-    componentDidMount(){
-        if (!this.props.building && this.props.authRedirectPath!== '/'){
-            this.props.onSetAuthRedirectPath();
-        }
-    }
+    // componentDidMount(){
+    //     if (!this.props.authRedirectPath!== '/'){
+    //         this.props.onSetAuthRedirectPath();
+    //     }
+    // }
 
     render(){
 
@@ -150,7 +150,8 @@ class Auth extends Component {
             if (this.props.error) errorMessage = <p>{this.props.error.message}</p>;
 
             if(this.props.isAuthenticated){
-                return (<Redirect to={this.props.authRedirectPath} />)
+                // return (<Redirect to={this.props.authRedirectPath} />)
+                return (<Redirect to="/projects" />)
             }
         
            return(
@@ -180,7 +181,7 @@ const mapStatetoProps = state => {
 const mapDispatchtoProps = dispatch => {
 	return{
 		onAuth: (email,password, isSignup) => dispatch(actions.authenticate(email,password, isSignup)),
-		onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/')),
+		onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/projects')),
 	}
 }
 

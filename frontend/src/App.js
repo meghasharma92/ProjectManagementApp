@@ -1,40 +1,47 @@
 import React, { Component } from 'react';
 import Layout from './hoc/Layout/Layout';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import * as actions from './store/actions/index';
-import Auth from './containers/Auth/Auth';
-import Logout from './containers/Auth/Logout/Logout';
-import Projects from './containers/Projects/Projects';
-import NewProject from './containers/NewProject/NewProject';
-import EditProject from './containers/EditProject/EditProject';
-import Project from './containers/Project/Project';
-import NewTask from './containers/Project/Todo/NewTask';
+import { Auth, Logout, Projects, Project, NewProject, EditProject, Tasks, NewTask, AdminDashboard } from './containers/index';
+import HighchartTest from './containers/HighchartTest';
+
 
 class App extends Component {
 
-  componentWillMount(){
+  componentDidMount(){
       this.props.onTryAutoSignin();
   }
 
   render(){
 
       let routes = (<Switch>
-        <Route path="/login" component={Auth} /> 
-        <Route path="/" exact component={Projects} /> 
-        <Route path="/projects/new" exact component={NewProject} />
-        <Route path="/projects/:projectId/edit" exact component={EditProject} />
-        <Route path="/projects/:projectId"  component={Project} />
-        </Switch>)
+              <Route path="/login" component={Auth} /> 
+              <Route path="/logout" component={Logout} /> 
+              <Route exact path="/" > 
+            <Redirect to= "/login" />
+            </Route>
+          </Switch>)
 
       if (this.props.isAuthenticated){
-          routes = (<Switch>
-            <Route path="/projects" component={Projects} /> 
-            <Route path="/logout" component={Logout} /> 
-            </Switch>)
+        routes = (<Switch>
+          <Route path="/login" component={Auth} /> 
+          <Route path="/logout" component={Logout} /> 
+          <Route path="/projects" exact component={Projects} />
+          <Route exact path="/" > 
+            <Redirect to= "/projects" />
+          </Route>
+          <Route path="/projects/new" exact component={NewProject} />
+          <Route path="/tasks" exact component={Tasks} />
+          <Route path="/dashboard" exact component={AdminDashboard} />
+          <Route path="/projects/:projectId/edit" exact component={EditProject} />
+          <Route path="/projects/:projectId/new-todo" exact component={NewTask} />
+          <Route path={`/projects/:projectId(\\d+)`} exact component={Project} />
+          <Route path={'/highchart'} exact component={HighchartTest} />
+          {/* <Route path="/projects/:projectId/add-resource"  exact component={AddResource} /> */}
+          </Switch>)
       }
-
 
       return (
         <div>

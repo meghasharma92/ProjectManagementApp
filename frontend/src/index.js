@@ -8,7 +8,8 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import authReducer from './store/reducers/auth';
-import projectsReducer from './store/reducers/projects';
+// import projectsReducer from './store/reducers/projects';
+import * as reducers from './store/reducers/index';
 import projectReducer from './store/reducers/project';
 import thunk from 'redux-thunk';
 
@@ -16,7 +17,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
         auth: authReducer,
-        projectsReducer: projectsReducer,
+        projectsReducer: reducers.projectsReducer,
+        tasksReducer: reducers.tasksReducer,
         projectReducer: projectReducer
 });
 

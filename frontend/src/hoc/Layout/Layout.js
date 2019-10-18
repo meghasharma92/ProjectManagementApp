@@ -45,6 +45,12 @@ class Layout extends Component {
 				  <NavLink href="/projects">Projects</NavLink>
 				</NavItem>
 				<NavItem>
+				  <NavLink href="/tasks">Tasks</NavLink>
+				</NavItem>
+				<NavItem>
+				  <NavLink href="/dashboard">Dashboard</NavLink>
+				</NavItem>
+				<NavItem>
 				  <NavLink href="/logout">Logout</NavLink>
 				</NavItem>
 				</Aux>

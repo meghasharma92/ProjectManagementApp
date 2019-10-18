@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import { Button, Table } from 'reactstrap';
 
@@ -8,19 +8,20 @@ import Aux from '../../hoc/Aux/Aux';
 import axios from '../../axios-orders';
 import * as actions from '../../store/actions/index';
 import NewTask from './Todo/NewTask';
-import AssignResource from './Resource/AssignResource';
+import AddTaskResource from './Todo/AddResource';
+import AddProjectResource from './AddResource';
 
 class Project extends Component {
 
     state = {
         projectName: null,
-        todos: null
+        todos: null,
+        full_path: null
     }
 
 	componentDidMount(){
-		console.log(this.props);
-		console.log(this.props.match.params.projectId);
-    this.setState({projectName: this.props.match.params.projectId})
+    this.setState({full_path: this.props.history.location.pathname})
+    this.setState({projectName: this.props.match.params.projectId, full_path: this.props.history.location.pathname})
     this.props.onInitProject();
   }
   
@@ -34,9 +35,15 @@ class Project extends Component {
 		this.props.history.replace(path);
   }
   
-  assignNewResource = () => {
+  assignResource = () => {
     console.log(this.props.history.location.pathname);
 		let path = this.props.history.location.pathname + '/assign-resource';
+		this.props.history.replace(path);
+  }
+  
+  addResource = () => {
+    console.log(this.props.history.location.pathname);
+		let path = this.props.history.location.pathname + '/add-resource';
 		this.props.history.replace(path);
 	}
 
@@ -56,7 +63,7 @@ class Project extends Component {
                     <td>{todoObject.description}</td>
                     <td>{todoObject.status}</td>
                     <td>
-                    <Button color="success" size="sm" >Assign</Button>{' '} 
+                    <Button color="success" size="sm" onClick={() => this.assignResource()} >Assign</Button>{' '} 
                     <Button color="info" size="sm" >Edit</Button>{' '} 
                     <Button color="danger" size="sm" >Delete</Button>{' '} 
                     </td>
@@ -88,20 +95,25 @@ class Project extends Component {
               <h3 align="center"> 
               {project}  
               </h3>
-              <div align="right">
-                <Button color="info" size="sm" onClick={() => this.createNewTask()} >Create New Task</Button>{' '} 
-                <Button color="info" size="sm" onClick={() => this.assignNewResource()}>Assign New Resource</Button>{' '} 
-              </div>
-              <h4 align="center">Tasks</h4>
+              <Switch>
               <Route 
-                  path= {this.props.match.path + '/new-todo'}
+                  path= {this.props.match.path + '/new-todo'} exact
                   component={NewTask}>
               </Route> 
               <Route 
-                  path={this.props.match.path + '/assign-resource'}
-                  component={AssignResource}>
+                  path={this.props.match.path + '/assign-resource'} exact
+                  component={AddTaskResource}>
               </Route> 
-              
+              <Route 
+                  path={this.props.match.path + '/add-resource'} exact
+                  component={AddProjectResource}>
+              </Route>
+              </Switch> 
+              <div align="right">
+                <Button color="info" size="sm" onClick={() => this.createNewTask()} >Create New Task</Button>{' '} 
+                <Button color="info" size="sm" onClick={() => this.addResource()}>Add New Resource</Button>{' '} 
+              </div>
+              <h4 align="center">Tasks</h4>
               <Table striped>
               <thead>
                 <tr>

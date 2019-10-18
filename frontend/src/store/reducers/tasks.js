@@ -1,15 +1,15 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    projects: null
+    tasls: null
 };
 
-export const projectsReducer = (state = initialState, action) => {
+export const tasksReducer = (state = initialState, action) => {
             switch(action.type) {
-                case actionTypes.SET_PROJECTS:
+                case actionTypes.SET_TASKS:
                     return {
                         ...state,
-                        projects: action.projects,
+                        tasks: action.tasks,
                         error: false
                         }
                default:
@@ -17,4 +17,4 @@ export const projectsReducer = (state = initialState, action) => {
             }
 };
 
-// export default projectsReducer;
+// export default tasksReducer;
